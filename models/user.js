@@ -42,7 +42,24 @@ module.exports = (dbPool) => {
     },
 
     login: (user, callback) => {
-      // TODO: Add logic here
+      console.log(user);
+      // { name: 'junwei', password: '123', submit: 'Submit' }
+      // fetch hash from db
+      const username = user.name;
+      // console.log("username", user.name);
+      dbPool.query(`select password from users where name='${username}'`, (error, queryResult) => {
+        if (error) {
+          console.error("unable to retrive pw", error.stack)
+        }
+        console.log(queryResult.rows[0].password);
+        bcrypt.compare(user.password, queryResult.rows[0].password, (err, res) => {
+          if (res) {
+            callback(true);
+          } else {
+            callback(false);
+          }
+        });
+      })
     }
   };
 };

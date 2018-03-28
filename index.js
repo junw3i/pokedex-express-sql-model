@@ -36,7 +36,6 @@ require('./routes')(app, db);
 app.get('/', (request, response) => {
   let loggedIn = request.cookies['loggedIn'];
   let username = request.cookies['username'];
-
   db.pool.query('SELECT * FROM pokemons', (error, queryResult) => {
     if (error) console.error('error!', error);
 

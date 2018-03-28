@@ -6,7 +6,7 @@
 </head>
 <body>
   <h4>Editing: {{pokemon.name}}</h4>
-  <form class="pokemon-form" method="POST" action="/{{pokemon.id}}?_method=PUT">
+  <form class="pokemon-form" method="POST" action="/pokemons/{{pokemon.id}}/edit?_method=PUT">
     <div class="pokemon-attribute">
       id:<input name="id" type="text" value="{{pokemon.id}}"/>
     </div>

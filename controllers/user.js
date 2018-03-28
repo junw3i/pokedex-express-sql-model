@@ -16,7 +16,7 @@ const create = (db) => {
       // (you can choose to omit it completely from the function parameters)
 
       if (error) {
-        console.error('error getting pokemon:', error);
+        console.error('error creating user:', error);
         response.sendStatus(500);
       }
 
@@ -38,17 +38,33 @@ const create = (db) => {
 
 const logout = (request, response) => {
   response.clearCookie('loggedIn');
+  response.clearCookie('username');
   response.redirect(301, '/');
 };
 
 const loginForm = (request, response) => {
-  response.render('user/login');
+  // redirect logged in users to root
+  if (request.cookies['loggedIn'] == 'true') {
+    response.redirect('/');
+  } else {
+    response.render('user/login');
+  }
+
 };
 
-const login = (request, response) => {
-  // TODO: Add logic here
-  // Hint: All SQL queries should happen in the corresponding model file
-  // ie. in models/user.js - which method should this controller call on the model?
+const login = (db) => {
+  return (request, response) => {
+    db.user.login(request.body, (queryResult) => {
+      if (queryResult) {
+        response.cookie('loggedIn', true);
+        response.cookie('username', request.body.name);
+        response.redirect('/');
+      } else {
+        console.log("login unsuccessful");
+        response.redirect('/users/login');
+      }
+    })
+  }
 };
 
 /**

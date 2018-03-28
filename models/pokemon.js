@@ -31,6 +31,20 @@ module.exports = (dbPool) => {
       dbPool.query('SELECT * from pokemons WHERE id=$1', values, (error, queryResult) => {
         callback(error, queryResult);
       });
+    },
+    updatePokemon: (data, callback) => {
+      const values = [];
+      console.log("id", data[0]);
+      dbPool.query(`update pokemons set name='${data[1].name}', img='${data[1].img}', height='${data[1].height}', weight='${data[1].weight}' where id=${data[0]}`, values, (error, queryResult) => {
+        callback(error, queryResult);
+      });
+    },
+    updateForm: (id, callback) => {
+      const values = [id];
+      // console.log(values);
+      dbPool.query('select * from pokemons where id=$1', values, (error, queryResult) => {
+        callback(error, queryResult);
+      });
     }
   };
 };
