@@ -60,6 +60,28 @@ module.exports = (dbPool) => {
           }
         });
       })
+    },
+
+    getUser: (data, callback) => {
+      // console.log(data);
+      const values = [data];
+      dbPool.query(`select users.id, users.name, users.email from users where users.id=${data}`, (error, queryResult) => {
+        if (error) {
+          console.error("unable to get user_pokemons", error.stack)
+        }
+        // console.log("results", queryResult.rows);
+        callback(queryResult.rows[0]);
+      })
+    },
+
+    getPokemons: (data, callback) => {
+      dbPool.query(`select distinct pokemons.name from user_pokemons left join pokemons on user_pokemons.pokemon_id=pokemons.id where user_pokemons.user_id=${data}`, (error, queryResult) => {
+        if (error) {
+          console.error("unable to get user caught pokemons", error.stack)
+        }
+        console.log("CAUGHT", queryResult.rows)
+        callback(queryResult.rows);
+      })
     }
   };
 };

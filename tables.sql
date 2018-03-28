@@ -15,3 +15,12 @@ CREATE TABLE IF NOT EXISTS users (
   email varchar(255),
   password varchar(255)
 );
+
+
+-- create join TABLE
+CREATE TABLE IF NOT EXISTS user_pokemons (
+  id serial primary key,
+  pokemon_id integer,
+  user_id integer,
+  created_at timestamp
+);

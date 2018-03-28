@@ -15,6 +15,18 @@
     <li class="user-attribute">
       email: {{user.email}}
     </li>
+    <li class="user-attribute">
+      pokemons caught:
+      {{#if pokemons}}
+        <ul>
+          {{#each pokemons}}
+          <li>{{this.name}}</li>
+          {{/each}}
+        </ul>
+      {{else}}
+       nil
+      {{/if}}
+    </li>
   </ul>
 </body>
 </html>

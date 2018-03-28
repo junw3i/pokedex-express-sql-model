@@ -67,6 +67,21 @@ const login = (db) => {
   }
 };
 
+const getPokemons = (db) => {
+  return (request, response) => {
+    if (request.cookies['loggedIn'] != 'true') {
+      response.redirect('/');
+    } else {
+      db.user.getUser(request.params.id, (queryResult) => {
+        // console.log("MY RESULTS", queryResult);
+        db.user.getPokemons(request.params.id, (queryResult2) => {
+          response.render("user/user", {user: queryResult, pokemons: queryResult2});
+        })
+      })
+    }
+  }
+};
+
 /**
  * ===========================================
  * Export controller functions as a module
@@ -77,5 +92,6 @@ module.exports = {
   create,
   logout,
   loginForm,
-  login
+  login,
+  getPokemons
 };

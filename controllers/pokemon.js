@@ -67,13 +67,26 @@ const create = (db) => {
       }
 
       if (queryResult.rowCount >= 1) {
+        console.log(queryResult.rows[0].id);
         console.log('Pokemon created successfully');
+        db.pokemon.mapOwner([queryResult.rows[0].id, request.body.user_id], (error2, queryResult2) => {
+          if (error2) {
+            console.error('error mapping pokemon to user:', error2.stack);
+            response.sendStatus(500);
+          }
+          if (queryResult2.rowCount >= 1) {
+            console.log('Pokemon mapped to user successfully');
+          }
+
+          response.redirect('/');
+        })
       } else {
         console.log('Pokemon could not be created');
+        response.redirect('/');
       }
 
       // redirect to home page after creation
-      response.redirect('/');
+      // response.redirect('/');
     });
   };
 };

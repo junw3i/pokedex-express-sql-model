@@ -10,6 +10,7 @@ module.exports = (app, db) => {
   // CRUD users
   app.get('/users/new', users.newForm);
   app.post('/users', users.create(db));
+  app.get('/users/:id', users.getPokemons(db));
 
   // Authentication
   app.post('/users/logout', users.logout);

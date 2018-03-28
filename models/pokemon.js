@@ -9,7 +9,7 @@ module.exports = (dbPool) => {
     create: (pokemon, callback) => {
       // set up query
       const queryString = `INSERT INTO pokemons (name, num, img, weight, height)
-        VALUES ($1, $2, $3, $4, $5)`;
+        VALUES ($1, $2, $3, $4, $5) returning id`;
       const values = [
         pokemon.name,
         pokemon.num,
@@ -45,6 +45,13 @@ module.exports = (dbPool) => {
       dbPool.query('select * from pokemons where id=$1', values, (error, queryResult) => {
         callback(error, queryResult);
       });
+    },
+    mapOwner: (values, callback) => {
+      console.log("mapping data", values);
+      dbPool.query(`insert into user_pokemons (pokemon_id, user_id, created_at) values ($1, $2, now());`, values, (error, queryResult) => {
+        callback(error, queryResult);
+      })
+
     }
   };
 };
