@@ -20,7 +20,7 @@ app.use(methodOverride('_method'));
 app.use(cookieParser());
 
 // Set handlebars to be the default view engine
-app.engine('handlebars', handlebars.create().engine);
+app.engine('handlebars', handlebars({ defaultLayout: "main" }));
 app.set('view engine', 'handlebars');
 
 /**
@@ -34,6 +34,7 @@ require('./routes')(app, db);
 
 // Root GET request (it doesn't belong in any controller file)
 app.get('/', (request, response) => {
+
   let loggedIn = request.cookies['loggedIn'];
   let username = request.cookies['username'];
   db.pool.query('SELECT * FROM pokemons', (error, queryResult) => {

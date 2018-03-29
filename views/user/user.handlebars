@@ -1,32 +1,24 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>User profile</title>
-</head>
-<body>
-  <ul class="user-list">
-    <li class="user-attribute">
-      id: {{user.id}}
-    </li>
-    <li class="user-attribute">
-      name: {{user.name}}
-    </li>
-    <li class="user-attribute">
-      email: {{user.email}}
-    </li>
-    <li class="user-attribute">
-      pokemons caught:
-      {{#if pokemons}}
-        <ul>
-          {{#each pokemons}}
-          <li>{{this.name}}</li>
-          {{/each}}
-        </ul>
-      {{else}}
-       nil
-      {{/if}}
-    </li>
-  </ul>
-</body>
-</html>
+
+<ul class="user-list">
+  <li class="user-attribute">
+    id: {{user.id}}
+  </li>
+  <li class="user-attribute">
+    name: {{user.name}}
+  </li>
+  <li class="user-attribute">
+    email: {{user.email}}
+  </li>
+  <li class="user-attribute">
+    pokemons caught:
+    {{#if pokemons}}
+    <ul>
+      {{#each pokemons}}
+      <li>{{this.name}}</li>
+      {{/each}}
+    </ul>
+    {{else}}
+    nil
+    {{/if}}
+  </li>
+</ul>
